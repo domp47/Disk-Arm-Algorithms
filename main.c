@@ -3,8 +3,8 @@
 #include <string.h>
 
 
-void FCFS(char*); //Prints First Come First Serve Algorithm
-void SSF(char*);  //Prints Shortest Seek First Algorithm
+int FCFS(char*); //Prints First Come First Serve Algorithm
+int SSF(char*);  //Prints Shortest Seek First Algorithm
 
 int main() {
     char S1[27] = "InputFiles/scheduling1.txt"; //first file to read
@@ -32,10 +32,10 @@ int main() {
     }
     else{//if not one of those 3 exit
         printf("Error - Incorrect input.");
-        return 1;
+        return 2;
     }
 }
-void FCFS(char* f){//first come first serve algorithm
+int FCFS(char* f){//first come first serve algorithm
     FILE *Sched;
     Sched = fopen(f,"r");// opens chosen file
     char buf[100];      //char array for file contents
@@ -45,8 +45,10 @@ void FCFS(char* f){//first come first serve algorithm
 
     printf("\nRunning FCFS Scheduling\n");
 
-    if(!Sched)  //if no file exit method
-        return;
+    if(!Sched){//if no file end
+        printf("Error - File not found.");
+        return 1;
+    }
 
     fgets(buf,100,Sched);   //read first line - number of cylinder to read
 
@@ -79,8 +81,10 @@ void FCFS(char* f){//first come first serve algorithm
         token = strtok(NULL,",");   //get next cylinder
     }
     printf("FCFS Distance: %d\n\n",distance);   //print total distance moved
+
+    return 0;
 }
-void SSF(char* f){
+int SSF(char* f){
     FILE *Sched;
     Sched = fopen(f,"r");// opens chosen file
     char buf[100];
@@ -90,8 +94,10 @@ void SSF(char* f){
 
     printf("Running SSF Scheduling\n");
 
-    if(!Sched)  //if no file exit
-        return;
+    if(!Sched){//if no file end
+        printf("Error - File not found.");
+        return 1;
+    }
 
     fgets(buf,100,Sched);   //get first line
 
@@ -140,4 +146,6 @@ void SSF(char* f){
         cyl[loc] = INT_MAX;//set the current cylinder to read
     }
     printf("SSF Distance: %d\n\n",distance);//print total distance
+
+    return 0;
 }
